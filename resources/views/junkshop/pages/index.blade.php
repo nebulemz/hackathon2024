@@ -20,26 +20,24 @@
             </div>
             <div class="card col-12">
                 <div class="card-body">
-                    <div class="d-flex justify-content-between">
-                        <div>
-
-                        </div>
-                        <div>
+                          <div>
                             <a class="btn btn-outline-primary" href="{{ route('junkshop.pages.rates.create') }}">Add
                                 Inventory</a>
                             <button type="button" class="btn btn-outline-success">Update Inventory</button>
+                        </div>
+                    <div class="d-flex justify-content-between">
+                        <div>
                         </div>
                     </div>
                     <div class="table-responsive" id="tag_container">
                         @include('junkshop.pages.rates-table')
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
 @endsection
 
-    @push('scripts')
-        {{-- @include('_common.scripts.ajax-table-js') --}}
-    @endpush
+@push('scripts')
+    {{-- @include('_common.scripts.ajax-table-js') --}}
+@endpush
