@@ -13,7 +13,9 @@
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $booking->user->name }}</td>
+                    <td>{{ $booking->status }}</td>
                     <td>{{ $booking->description }}</td>
+
                 </tr>
             @empty
                 <tr>

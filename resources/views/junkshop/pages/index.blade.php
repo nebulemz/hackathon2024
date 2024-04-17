@@ -30,12 +30,14 @@
                                 Add Inventory
                             </button>
                         </div>
+                    <div class="d-flex justify-content-between">
+                        <div>
+                        </div>
                     </div>
                     <div class="table-responsive" id="tag_container">
                         @include('junkshop.pages.rates-table')
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
@@ -155,7 +157,6 @@
         </div>
     @endforeach
 @endsection
-
 @push('scripts')
     {{-- @include('_common.scripts.ajax-table-js') --}}
 @endpush
