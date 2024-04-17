@@ -1,6 +1,7 @@
 <style>
     .navbar-brand-image {
-    height: 60%;
+    height: 50%;
+    width: 100%;
 }
 </style>
 <header class="navbar navbar-expand-md d-print-none bg-teal" data-bs-theme="light">
@@ -11,7 +12,7 @@
         </button>
         <h1 class="navbar-brand navbar-brand-autolight d-none-navbar-horizontal pe-0 pe-md-3">
             <a href=".">
-                <img src="{{ asset('images/logo/logo150x32.svg') }}" alt="Tabler"
+                <img src="{{ asset('images/logo/logo132x50final.svg') }}"alt="Tabler"
                     class="navbar-brand-image">
             </a>
         </h1>

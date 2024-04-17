@@ -22,12 +22,12 @@ Route::get('/auth/register-junkshop', function(){
 
 //Junkshop Routes
 Route::prefix('junkshop')->group(function () {
-    Route::get('/', [JunkshopController::class, 'index'])->name('admin.pages.junkshop.index');
-    Route::get('/create', [JunkshopController::class, 'create'])->name('admin.pages.junkshop.create');
-    Route::post('/', [JunkshopController::class, 'store'])->name('admin.pages.junkshop.store');
-    Route::get('/{junkshop}/edit', [JunkshopController::class, 'edit'])->name('admin.pages.junkshop.edit');
-    Route::put('/{junkshop}/update', [JunkshopController::class, 'update'])->name('admin.pages.junkshop.update');
-    Route::delete('/{junkshop}/destroy', [JunkshopController::class, 'destroy'])->name('admin.pages.junkshop.destroy');
+    Route::get('/', [JunkshopController::class, 'index'])->name('junkshop.pages.index');
+    Route::get('/create', [JunkshopController::class, 'create'])->name('junkshop.pages.create');
+    Route::post('/', [JunkshopController::class, 'store'])->name('junkshop.pages.store');
+    Route::get('/{junkshop}/edit', [JunkshopController::class, 'edit'])->name('junkshop.pages.edit');
+    Route::put('/{junkshop}/update', [JunkshopController::class, 'update'])->name('junkshop.pages.update');
+    Route::delete('/{junkshop}/destroy', [JunkshopController::class, 'destroy'])->name('junkshop.pages.destroy');
 });
 
 
