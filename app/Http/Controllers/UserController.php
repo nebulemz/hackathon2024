@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Booking;
 use App\Models\Junkshop;
 use App\Models\User;
+use App\Notifications\CreatedBooking;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 
 class UserController extends Controller
 {
@@ -15,17 +16,30 @@ class UserController extends Controller
         return view('user.pages.index', compact('junkshops'));
     }
 
-    public function showBookings(Request $request, $booking)
+    public function showBookings()
     {
-        $booking = Booking::paginate();
+        // Junkshop name, Junkshop Address, Booking Status, Booking Description, Schedule
 
-        return view('user.pages.bookings-show', [
-            'junkshopName' => $booking->junkshop_name,
-            'junkshopAddress' => $booking->junkshop_address,
-            'bookingStatus' => $booking->status,
-            'bookingDescription' => $booking->description,
-            'schedule' => $booking->schedule,
+        return view('user.pages.bookings-show');
+    }
+
+    public function storeBookings(Request $request, Junkshop $junkshop)
+    {
+        $data = $request->validate([
+            'description' => 'required',
+            'schedule' => 'required|date|after:1 hour'
         ]);
+
+        auth()->user()->bookings()->create([
+            'junkshop_id' => $junkshop->id,
+            'schedule' => $data['schedule'],
+            'status' => 'pending',
+            'description' => $data['description']
+        ]);
+
+        Notification::send($junkshop->user, new CreatedBooking($junkshop));
+
+        return redirect()->route('user.pages.index')->with('success', 'Book successfully');
     }
 
     // public function create()

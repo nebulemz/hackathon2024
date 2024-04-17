@@ -31,15 +31,14 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 //Junkshop Routes
-Route::prefix('junkshop')->group(function () { 
+Route::group(['middleware' => ['auth', 'junkshop-owner'], 'prefix' => 'junkshop'], function () {
     Route::get('/', [JunkshopController::class, 'index'])->name('junkshop.pages.index');
+    Route::post('/{booking}', [JunkshopController::class, 'decideBooking'])->name('junkshop.pages.decide');
     Route::get('/rates/create', [JunkshopRateController::class, 'create'])->name('junkshop.pages.rates.create');
     Route::post('/rates/create', [JunkshopRateController::class, 'store'])->name('junkshop.pages.rates.store');
     Route::put('/rates/{junkshopRate}/update', [JunkshopRateController::class, 'update'])->name('junkshop.pages.rates.update');
     Route::delete('/rates/{junkshopRate}/destroy', [JunkshopRateController::class, 'destroy'])->name('junkshop.pages.rates.destroy');
-
 });
-
 
 //Users
 
@@ -47,5 +46,7 @@ Route::prefix('junkshop')->group(function () {
 //     return view('user.pages.index');
 // })->name('user.pages.index');
 
-Route::get('/user/dashboard', [UserController::class, 'index'])->name('user.pages.index');
-Route::get('/user/{booking}',[UserController::class, 'show'])->name('user.pages.bookings-show');
+Route::group(['middleware' => ['user', 'auth'], 'prefix' => 'user'], function () {
+    Route::get('/dashboard', [UserController::class, 'index'])->name('user.pages.index');
+    Route::post('/dashboard/{junkshop}/bookings', [UserController::class, 'storeBookings'])->name('user.pages.bookings.store');
+});
