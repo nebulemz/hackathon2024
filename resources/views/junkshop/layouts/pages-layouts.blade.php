@@ -33,7 +33,7 @@
 </head>
 
 <body>
-    {{-- @yield('modals') --}}
+    @include('components.toaster')
     <div class="page">
         <!-- Page header -->
         @include('junkshop.layouts.header')
@@ -43,7 +43,7 @@
             @include('junkshop.layouts.footer')
         </div>
     </div>
-
+    @yield('modals')
 
     <!-- Libs JS -->
     <script src="{{ asset('/assets/dist/libs/jsvectormap/dist/js/jsvectormap.min.js') }}" defer></script>
