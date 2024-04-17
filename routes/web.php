@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\JunkshopController;
+use App\Http\Controllers\JunkshopRateController;
 use App\Http\Controllers\RedirectController;
 use App\Http\Controllers\RegisterJunkshop;
 use Illuminate\Support\Facades\Route;
@@ -31,7 +32,7 @@ Route::group(['middleware' => 'auth'], function () {
 //Junkshop Routes
 Route::prefix('junkshop')->group(function () {
     Route::get('/', [JunkshopController::class, 'index'])->name('junkshop.pages.index');
-    Route::get('/create', [JunkshopController::class, 'create'])->name('junkshop.pages.create');
+    Route::get('/rates/create', [JunkshopRateController::class, 'create'])->name('junkshop.pages.rates.create');
     Route::post('/', [JunkshopController::class, 'store'])->name('junkshop.pages.store');
     Route::get('/{junkshop}/edit', [JunkshopController::class, 'edit'])->name('junkshop.pages.edit');
     Route::put('/{junkshop}/update', [JunkshopController::class, 'update'])->name('junkshop.pages.update');
