@@ -5,6 +5,7 @@ use App\Http\Controllers\JunkshopController;
 use App\Http\Controllers\JunkshopRateController;
 use App\Http\Controllers\RedirectController;
 use App\Http\Controllers\RegisterJunkshop;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -41,6 +42,8 @@ Route::prefix('junkshop')->group(function () {
 
 //Users
 
-Route::get('/user/dashboard', function () {
-    return view('user.pages.index');
-})->name('user.pages.index');
+// Route::get('/user/dashboard', function () {
+//     return view('user.pages.index');
+// })->name('user.pages.index');
+
+Route::get('/user/dashboard', [UserController::class, 'index'])->name('user.pages.index');

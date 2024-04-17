@@ -14,7 +14,8 @@ class Booking extends Model
         'junkshop_id',
         'user_id',
         'status',
-        'description'
+        'description',
+        'schedule'
     ];
 
     public function user(): BelongsTo

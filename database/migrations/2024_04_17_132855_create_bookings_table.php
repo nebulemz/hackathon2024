@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained();
             $table->string('status');
             $table->string('description');
+            $table->timestamp('schedule')->nullable();
             $table->timestamps();
         });
     }
