@@ -29,21 +29,18 @@
         }
     </style>
     @stack('styles')
-    @vite('resources/js/app.js')
+    {{-- @vite('resources/js/app.js') --}}
 </head>
 
 <body>
-    @yield('modals')
+    {{-- @yield('modals') --}}
     <div class="page">
-        <!-- Sidebar -->
-        @include('admin.layouts.sidebar')
+        <!-- Page header -->
+        @include('user.layouts.header')
         <div class="page-wrapper">
-            <!-- Page header -->
-            @include('admin.layouts.header')
-
             @yield('content')
             <!-- Page body -->
-            @include('admin.layouts.footer')
+            @include('user.layouts.footer')
         </div>
     </div>
 

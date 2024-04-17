@@ -29,15 +29,15 @@
         }
     </style>
     @stack('styles')
+    {{-- @vite('resources/js/app.js') --}}
 </head>
 
 <body>
+    {{-- @yield('modals') --}}
     <div class="page">
-        <!-- Sidebar -->
+        <!-- Page header -->
+        @include('junkshop.layouts.header')
         <div class="page-wrapper">
-            <!-- Page header -->
-            @include('junkshop.layouts.header')
-
             @yield('content')
             <!-- Page body -->
             @include('junkshop.layouts.footer')

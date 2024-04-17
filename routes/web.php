@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\JunkshopController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -19,8 +20,20 @@ Route::get('/auth/register-junkshop', function(){
 
 
 
+//Junkshop Routes
+Route::prefix('junkshop')->group(function () {
+    Route::get('/', [JunkshopController::class, 'index'])->name('junkshop.pages.index');
+    Route::get('/create', [JunkshopController::class, 'create'])->name('junkshop.pages.create');
+    Route::post('/', [JunkshopController::class, 'store'])->name('junkshop.pages.store');
+    Route::get('/{junkshop}/edit', [JunkshopController::class, 'edit'])->name('junkshop.pages.edit');
+    Route::put('/{junkshop}/update', [JunkshopController::class, 'update'])->name('junkshop.pages.update');
+    Route::delete('/{junkshop}/destroy', [JunkshopController::class, 'destroy'])->name('junkshop.pages.destroy');
+});
 
-//Junshop Route
-Route::get('/junkshop/dashboard', function(){
-    return view('junkshop.pages.index');
-})->name('junkshop.pages.index');
+
+
+//Users
+
+Route::get('/user/dashboard', function(){
+    return view('user.pages.index');
+})->name('user.pages.index');
