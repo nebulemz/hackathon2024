@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Junkshop;
 use App\Models\JunkshopRate;
 use Illuminate\Http\Request;
 
@@ -28,7 +29,17 @@ class JunkshopRateController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'junkshop_id' => 'required|exists:junkshops,id',
+            'name' => 'required|string',
+            'price' => 'required|numeric',
+            'unit' => 'required',
+        ]);
+
+        $junkshop = Junkshop::where('id', $data['junkshop_id'])->first();
+        $junkshop->rates()->create($data);
+
+        return redirect()->route('junkshop.pages.index')->with('success', 'Added rates succesfully');
     }
 
     /**
@@ -44,7 +55,7 @@ class JunkshopRateController extends Controller
      */
     public function edit(JunkshopRate $junkshopRate)
     {
-        //
+
     }
 
     /**
@@ -52,7 +63,15 @@ class JunkshopRateController extends Controller
      */
     public function update(Request $request, JunkshopRate $junkshopRate)
     {
-        //
+        $data = $request->validate([
+            'name' => 'required|string',
+            'price' => 'required|numeric',
+            'unit' => 'required',
+        ]);
+
+        $junkshopRate->update($data);
+
+        return redirect()->route('junkshop.pages.index')->with('success', 'Edited rates succesfully');
     }
 
     /**
@@ -60,6 +79,8 @@ class JunkshopRateController extends Controller
      */
     public function destroy(JunkshopRate $junkshopRate)
     {
-        //
+        $junkshopRate->delete();
+
+        return redirect()->route('junkshop.pages.index')->with('success', 'Deleted rate succesfully');
     }
 }

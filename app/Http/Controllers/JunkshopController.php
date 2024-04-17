@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Junkshop;
 use App\Http\Requests\StoreJunkshopRequest;
 use App\Http\Requests\UpdateJunkshopRequest;
+use App\Models\JunkshopRate;
 
 class JunkshopController extends Controller
 {
@@ -16,7 +17,8 @@ class JunkshopController extends Controller
         $junkshop = auth()->user()->junkshop;
         $title = $junkshop->name. ' Junkshop';
         $availableBooking = $junkshop->bookings;
-        $rates = $junkshop->rates;
+        $rates = JunkshopRate::where('junkshop_id', $junkshop->id)->paginate(10);
+
         return view('junkshop.pages.index', compact('junkshop', 'title', 'availableBooking', 'rates'));
     }
 

@@ -15,7 +15,7 @@ class JunkshopRateFactory extends Factory
         return [
             'junkshop_id' => Junkshop::factory(),
             'name' => fake()->userName(),
-            'price' => fake()->randomFloat(),
+            'price' => mt_rand(10, 100),
             'unit' => 'kg'
         ];
     }
