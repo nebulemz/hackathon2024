@@ -13,7 +13,11 @@ class JunkshopController extends Controller
      */
     public function index()
     {
-        return view('junkshop.pages.index');
+        $junkshop = auth()->user()->junkshop;
+        $title = $junkshop->name. ' Junkshop';
+        $availableBooking = $junkshop->bookings;
+        $rates = $junkshop->rates;
+        return view('junkshop.pages.index', compact('junkshop', 'title', 'availableBooking', 'rates'));
     }
 
     /**
