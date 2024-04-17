@@ -27,11 +27,7 @@ class AuthController extends Controller
             throw ValidationException::withMessages(['email' => 'Invalid email or password.']);
         }
 
-        if(auth()->user()->isNotJunkshopOnwer()) {
-            return redirect('asdas');
-        } else {
-            return redirect('/');
-        }
+        return redirect('/');
     }
 
     public function registerView(): View
