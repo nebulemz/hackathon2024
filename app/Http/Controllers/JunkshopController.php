@@ -29,7 +29,7 @@ class JunkshopController extends Controller
      */
     public function store(StoreJunkshopRequest $request)
     {
-        
+
     }
 
     /**

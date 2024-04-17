@@ -20,7 +20,7 @@ class JunkshopRateController extends Controller
      */
     public function create()
     {
-        //
+        return view('junkshop.pages.rates.create');
     }
 
     /**
