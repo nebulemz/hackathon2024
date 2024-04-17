@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Booking;
 use App\Models\Junkshop;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -14,11 +15,17 @@ class UserController extends Controller
         return view('user.pages.index', compact('junkshops'));
     }
 
-    public function showBookings()
+    public function showBookings(Request $request, $booking)
     {
-        // Junkshop name, Junkshop Address, Booking Status, Booking Description, Schedule
+        $booking = Booking::paginate();
 
-        return view('user.pages.bookings-show')
+        return view('user.pages.bookings-show', [
+            'junkshopName' => $booking->junkshop_name,
+            'junkshopAddress' => $booking->junkshop_address,
+            'bookingStatus' => $booking->status,
+            'bookingDescription' => $booking->description,
+            'schedule' => $booking->schedule,
+        ]);
     }
 
     // public function create()

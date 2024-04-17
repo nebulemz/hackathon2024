@@ -1,5 +1,5 @@
 @extends('user.layouts.pages-layouts')
-@section('page-title', isset($pageTitle) ? $pageTitle : 'User Dashboard')
+@section('page-title', isset($pageTitle) ? $pageTitle : 'Bookings')
 @section('pageHeader')
 @endsection
 
@@ -9,7 +9,7 @@
             <div class="card-body">
                 <div class="table-responsive" id="tag_container">
                     <div id='map' style='width: 100%; height: 400px;'></div>
-                    @include('user.pages.junkshops-table')
+                    @include('user.pages.bookings-table')
                 </div>
             </div>
         </div>
@@ -17,12 +17,12 @@
 @endsection
 
 @section('modals')
-    @foreach ($junkshops as $junkshop)
-        <div class="modal" id="junkshop-rate-{{ $junkshop->id }}" tabindex="-1">
+    @foreach ($bookings as $booking)
+        <div class="modal" id="booking-rate-{{ $booking->id }}" tabindex="-1">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Rates for {{ $junkshop->name }} Junkshop</h5>
+                        <h5 class="modal-title">Booking for {{ $booking->junkshop_name }} Booking</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -37,12 +37,13 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse ($junkshop->rates as $junkshopRate)
+                                    @forelse ($booking->junkshop_name as $junkshopBook)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $junkshopRate->name }}</td>
-                                            <td>{{ $junkshopRate->unit }}</td>
-                                            <td>{{ $junkshopRate->price }}</td>
+                                            <td>{{ $junkshopBook->address }}</td>
+                                            <td>{{ $junkshopBook->status }}</td>
+                                            <td>{{ $junkshopBook->description }}</td>
+                                            <td>{{ $junkshopBook->schedule}}</td>
                                         </tr>
                                     @empty
                                         <tr>
@@ -76,9 +77,9 @@
             center: [120.97710231764093, 14.58918171014233], // starting position [lng, lat]
             zoom: 14, // starting zoom
         });
-        @foreach ($junkshops as $junkshop)
+        @foreach ($bookings as $booking)
             new mapboxgl.Marker()
-                .setLngLat([{{ $junkshop->longitude }}, {{ $junkshop->latitude }}])
+                .setLngLat([{{ $booking->longitude }}, {{ $booking->latitude }}])
                 .addTo(map);
         @endforeach
 

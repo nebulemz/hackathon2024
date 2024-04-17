@@ -31,12 +31,13 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 //Junkshop Routes
-Route::prefix('junkshop')->group(function () {
+Route::prefix('junkshop')->group(function () { 
     Route::get('/', [JunkshopController::class, 'index'])->name('junkshop.pages.index');
     Route::get('/rates/create', [JunkshopRateController::class, 'create'])->name('junkshop.pages.rates.create');
     Route::post('/rates/create', [JunkshopRateController::class, 'store'])->name('junkshop.pages.rates.store');
     Route::put('/rates/{junkshopRate}/update', [JunkshopRateController::class, 'update'])->name('junkshop.pages.rates.update');
     Route::delete('/rates/{junkshopRate}/destroy', [JunkshopRateController::class, 'destroy'])->name('junkshop.pages.rates.destroy');
+
 });
 
 
@@ -47,3 +48,4 @@ Route::prefix('junkshop')->group(function () {
 // })->name('user.pages.index');
 
 Route::get('/user/dashboard', [UserController::class, 'index'])->name('user.pages.index');
+Route::get('/user/{booking}',[UserController::class, 'show'])->name('user.pages.bookings-show');
