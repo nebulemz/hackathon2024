@@ -33,4 +33,9 @@ class Junkshop extends Model
     {
         return $this->hasMany(Booking::class);
     }
+
+    public function availableBookings(): HasMany
+    {
+        return $this->hasMany(Booking::class)->where('status', 'pending');
+    }
 }

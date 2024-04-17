@@ -21,14 +21,14 @@
                     </div>
                     <div class="mb-2">
                         <label class="form-label">
-                            Address
+                            Address (Click at the map)
                         </label>
                         <div class="input-group input-group-flat">
-                            <input class="form-control" type="text" name="address" placeholder="Address"
+                            <input class="form-control" type="text" id="address" name="address" placeholder="Address"
                                 autocomplete="off">
                         </div>
-                        <input type="hidden" name="latitude" value="{{ fake()->latitude() }}">
-                        <input type="hidden" name="longitude" value="{{ fake()->longitude() }}">
+                        <input type="hidden" name="latitude" id="lat">
+                        <input type="hidden" name="longitude" id="lng">
                     </div>
                     <div class="form-footer">
                         <button class="btn btn-teal w-100" type="submit">Register</button>
@@ -39,12 +39,71 @@
                 </div>
             </div>
         </div>
-        <div class="col-12 col-lg-6 col-xl-8 d-none d-lg-block">
+        <div class="col-12 col-lg-6 col-xl-8 d-lg-block">
             <!-- Photo -->
-            <div class="h-100 min-vh-100 bg-cover"
-                style="background-image: url({{ asset('/assets/static/photos/finances-us-dollars-and-bitcoins-currency-money-2.jpg') }}">
+            <div class="h-100 min-vh-100 bg-cover" id="map">
             </div>
         </div>
     </div>
 
 @endsection
+
+@push('scripts')
+    <script>
+        mapboxgl.accessToken = '{{ env('MAPBOX_PUBLIC_TOKEN') }}';
+
+        var map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/streets-v11',
+            center: [120.97710231764093, 14.58918171014233], // Default map center
+            zoom: 14 // Default zoom level
+        });
+
+        var markers = [];
+
+        map.on('click', function(e) {
+            var lngLat = e.lngLat;
+
+            // Call reverse geocoding API
+            reverseGeocode(lngLat);
+            removeMarkers();
+            addMarker(e.lngLat);
+
+            document.getElementById('lat').value = e.lngLat.lat
+            document.getElementById('lng').value = e.lngLat.lng
+        });
+
+        function addMarker(lngLat) {
+            var marker = new mapboxgl.Marker()
+                .setLngLat(lngLat)
+                .addTo(map);
+
+            markers.push(marker);
+        }
+
+        function removeMarkers() {
+            // Remove all markers from the map
+            markers.forEach(marker => marker.remove());
+            markers = []; // Reset markers array
+        }
+
+        function reverseGeocode(lngLat) {
+            fetch(
+                    `https://api.mapbox.com/geocoding/v5/mapbox.places/${lngLat.lng},${lngLat.lat}.json?access_token=${mapboxgl.accessToken}`)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data)
+                    var location = data.features[0];
+                    if (location) {
+                        document.getElementById('address').value = location.place_name;
+                        // Do something with the location data
+                    } else {
+                        alert('Location not found');
+                    }
+                })
+                .catch(error => {
+                    alert('Error fetching location data');
+                });
+        }
+    </script>
+@endpush

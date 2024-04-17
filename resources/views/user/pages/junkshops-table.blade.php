@@ -6,6 +6,7 @@
                 <th>Junkshop Name</th>
                 <th>Address</th>
                 <th class="text-end">Rates</th>
+                <th class="text-end">Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -18,6 +19,12 @@
                         <button class="btn btn-outline-teal" data-bs-toggle="modal"
                             data-bs-target="#junkshop-rate-{{ $junkshop->id }}">
                             View Rates
+                        </button>
+                    </td>
+                    <td class="text-end">
+                        <button class="btn btn-outline-teal" data-bs-toggle="modal"
+                            data-bs-target="#junkshop-book-{{ $junkshop->id }}">
+                            Book this shop
                         </button>
                     </td>
                 </tr>

@@ -34,6 +34,7 @@
 </head>
 
 <body>
+    @include('components.toaster')
     @yield('modals')
     <div class="page">
         <!-- Page header -->

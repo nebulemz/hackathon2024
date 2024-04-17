@@ -9,7 +9,7 @@
             </tr>
         </thead>
         <tbody>
-            @forelse ($availableBooking as $booking)
+            @forelse ($totalBookings as $booking)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $booking->user->name }}</td>
@@ -26,4 +26,5 @@
             @endforelse
         </tbody>
     </table>
+    {!! $totalBookings->render() !!}
 </div>

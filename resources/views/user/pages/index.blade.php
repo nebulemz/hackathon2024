@@ -63,6 +63,34 @@
                 </div>
             </div>
         </div>
+
+        <div class="modal" id="junkshop-book-{{ $junkshop->id }}" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <form class="modal-content" action="{{ route('user.pages.bookings.store', $junkshop->id) }}" method="POST">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Book {{ $junkshop->name }} Shop.</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        @csrf
+                        <div class="row">
+                            <div class="col-12 mb-3">
+                                <label>Special Instructions (Description)</label>
+                                <textarea name="description" class="form-control"></textarea>
+                            </div>
+                            <div class="col-12 mb-3">
+                                <label>Scheduled Date and Time</label>
+                                <input type="datetime-local" name="schedule" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn me-auto" data-bs-dismiss="modal">Close</button>
+                        <input type="submit" class="btn btn-teal" value="Submit" />
+                    </div>
+                </form>
+            </div>
+        </div>
     @endforeach
 
 @endsection

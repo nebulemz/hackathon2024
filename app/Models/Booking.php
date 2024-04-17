@@ -18,6 +18,13 @@ class Booking extends Model
         'schedule'
     ];
 
+    protected function casts(): array
+    {
+        return [
+            'schedule' => 'datetime',
+        ];
+    }
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class IsJunkshopOwner
+class MustBeJunkshopOwner
 {
     /**
      * Handle an incoming request.
@@ -15,7 +15,7 @@ class IsJunkshopOwner
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(! $request->user()?->isJunkshopOwner()) {
+        if($request->user()?->isNotJunkshopOwner()) {
             abort(403);
         }
 

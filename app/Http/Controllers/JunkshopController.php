@@ -2,71 +2,45 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Booking;
 use App\Models\Junkshop;
 use App\Http\Requests\StoreJunkshopRequest;
 use App\Http\Requests\UpdateJunkshopRequest;
 use App\Models\JunkshopRate;
+use App\Notifications\BookingAccepted;
+use App\Notifications\BookingRejected;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
+use Illuminate\View\View;
 
 class JunkshopController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function index(): View
     {
         $junkshop = auth()->user()->junkshop;
         $title = $junkshop->name. ' Junkshop';
-        $availableBooking = $junkshop->bookings;
+        $availableBooking = $junkshop->availableBookings()->latest()->paginate(10);
+        $totalBookings = $junkshop->bookings()->latest()->paginate(10);
         $rates = JunkshopRate::where('junkshop_id', $junkshop->id)->paginate(10);
 
-        return view('junkshop.pages.index', compact('junkshop', 'title', 'availableBooking', 'rates'));
+        return view('junkshop.pages.index', compact('junkshop', 'title', 'availableBooking', 'totalBookings', 'rates'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function decideBooking(Request $request, Booking $booking): RedirectResponse
     {
-        //
-    }
+        $data = $request->validate([
+            'status' => 'required|in:reject,accept'
+        ]);
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreJunkshopRequest $request)
-    {
+        if($data['status'] === 'reject') {
+            Notification::send($booking->user, new BookingRejected($booking->junkshop));
+        } else {
+            Notification::send($booking->user, new BookingAccepted($booking->junkshop));
+        }
 
-    }
+        $booking->update($data);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Junkshop $junkshop)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Junkshop $junkshop)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateJunkshopRequest $request, Junkshop $junkshop)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Junkshop $junkshop)
-    {
-        //
+        return redirect()->route('register.junkshop.process')->with('success', 'Successfully update booking.');
     }
 }
