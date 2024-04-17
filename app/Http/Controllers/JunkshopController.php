@@ -43,4 +43,11 @@ class JunkshopController extends Controller
 
         return redirect()->route('register.junkshop.process')->with('success', 'Successfully update booking.');
     }
+
+    public function viewBooking(Booking $booking)
+    {
+        $booking->load(['junkshop', 'user']);
+
+        return view('junkshop.pages.booking-details', compact('booking'));
+    }
 }

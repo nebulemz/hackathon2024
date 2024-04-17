@@ -2,30 +2,41 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Booking;
 use App\Models\Junkshop;
 use App\Models\User;
 use App\Notifications\CreatedBooking;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\View\View;
 
 class UserController extends Controller
 {
     public function index(Request $request)
     {
-        $junkshops = Junkshop::paginate();
-        return view('user.pages.index', compact('junkshops'));
+        $junkshops = Junkshop::paginate(10);
+        $bookings = Booking::where('user_id', auth()->id())->paginate(10);
+        return view('user.pages.index', compact('junkshops', 'bookings'));
     }
-
-    public function showBookings()
+    public function bookShow(Booking $booking): View
     {
-        // Junkshop name, Junkshop Address, Booking Status, Booking Description, Schedule
+        $booking->load(['user', 'junkshop']);
 
         return view('user.pages.bookings-show');
     }
 
-    public function storeBookings(Request $request, Junkshop $junkshop)
+    public function bookingCreate(Junkshop $junkshop): View
+    {
+        return view('user.pages.bookings-create', compact('junkshop'));
+    }
+
+    public function bookingStore(Request $request, Junkshop $junkshop)
     {
         $data = $request->validate([
+            'address' => 'required',
+            'contact_detail' => 'required',
+            'latitude' => 'required',
+            'longitude' => 'required',
             'description' => 'required',
             'schedule' => 'required|date|after:1 hour'
         ]);
@@ -34,6 +45,10 @@ class UserController extends Controller
             'junkshop_id' => $junkshop->id,
             'schedule' => $data['schedule'],
             'status' => 'pending',
+            'user_latitude' => $data['latitude'],
+            'user_longitude' => $data['longitude'],
+            'user_contact' => $data['contact_detail'],
+            'user_address' => $data['address'],
             'description' => $data['description']
         ]);
 

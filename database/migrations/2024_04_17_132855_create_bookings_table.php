@@ -16,7 +16,11 @@ return new class extends Migration
             $table->foreignId('junkshop_id')->constrained();
             $table->foreignId('user_id')->constrained();
             $table->string('status');
-            $table->string('description');
+            $table->string('user_contact');
+            $table->string('user_address');
+            $table->float('user_latitude');
+            $table->float('user_longitude');
+            $table->text('description');
             $table->timestamp('schedule')->nullable();
             $table->timestamps();
         });

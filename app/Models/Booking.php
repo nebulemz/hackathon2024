@@ -13,6 +13,10 @@ class Booking extends Model
     protected $fillable = [
         'junkshop_id',
         'user_id',
+        'user_address',
+        'user_contact',
+        'user_latitude',
+        'user_longitude',
         'status',
         'description',
         'schedule'

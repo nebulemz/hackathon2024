@@ -22,10 +22,9 @@
                         </button>
                     </td>
                     <td class="text-end">
-                        <button class="btn btn-outline-teal" data-bs-toggle="modal"
-                            data-bs-target="#junkshop-book-{{ $junkshop->id }}">
+                        <a href="{{ route('user.pages.bookings.create', $junkshop->id) }}" class="btn btn-outline-teal">
                             Book this shop
-                        </button>
+                        </a>
                     </td>
                 </tr>
             @empty
@@ -37,4 +36,5 @@
             @endforelse
         </tbody>
     </table>
+    {!! $junkshops->render() !!}
 </div>

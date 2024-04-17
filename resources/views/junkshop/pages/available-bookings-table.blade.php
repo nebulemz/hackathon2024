@@ -17,10 +17,9 @@
                     <td>{{ $booking->description }}</td>
                     <td>{{ $booking->schedule->toDateTimeString() }}</td>
                     <td>
-                        <button class="btn-teal btn" data-bs-toggle="modal"
-                            data-bs-target="#actions-booking-{{ $booking->id }}">
+                        <a class="btn-teal btn" href="{{ route('junkshop.pages.view-booking', $booking->id) }}">
                             Set Status
-                        </button>
+                        </a>
                     </td>
                 </tr>
             @empty
