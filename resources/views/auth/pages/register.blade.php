@@ -9,13 +9,6 @@
             </div>
             <form class="card card-md" action="{{ route('register') }}" method="POST" autocomplete="off" novalidate="">
                 @csrf
-                @if ($errors->any())
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                @endif
                 <div class="card-body">
                     <h2 class="card-title mb-4 text-center">Create new account</h2>
                     <div class="mb-3">
@@ -70,8 +63,8 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-check">
-                            <input class="form-check-input" type="checkbox">
-                            <span class="form-check-label">Agree the <a tabindex="-1">Terms and policy</a>.</span>
+                            <input class="form-check-input" type="checkbox" name="is_junkshop">
+                            <span class="form-check-label"><a tabindex="-1">Register as a Junkshop owner</a>.</span>
                         </label>
                     </div>
                     <div class="form-footer">

@@ -63,4 +63,14 @@ class User extends Authenticatable
     {
         return $query->where('is_junkshop', true);
     }
+
+    public function isJunkshopOwner(): bool
+    {
+        return $this->is_junkshop == true;
+    }
+
+    public function isNotJunkshopOwner(): bool
+    {
+        return $this->isJunkshopOwner() == false;
+    }
 }

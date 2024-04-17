@@ -34,6 +34,7 @@
     </head>
 
     <body class="d-flex flex-column bg-white">
+        @include('components.toaster')
         <script src="{{ asset('/assets/dist/js/demo-theme.min.js') }}"></script>
         @yield('content')
         <!-- Libs JS -->
