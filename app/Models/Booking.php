@@ -5,18 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Junkshop extends Model
+class Booking extends Model
 {
     use HasFactory;
 
     protected $fillable = [
+        'junkshop_id',
         'user_id',
-        'name',
-        'latitude',
-        'longitude',
-        'address'
+        'status',
+        'description'
     ];
 
     public function user(): BelongsTo
@@ -24,13 +22,8 @@ class Junkshop extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function rates(): HasMany
+    public function junkshop(): BelongsTo
     {
-        return $this->hasMany(JunkshopRate::class);
-    }
-
-    public function bookings(): HasMany
-    {
-        return $this->hasMany(Booking::class);
+        return $this->belongsTo(Junkshop::class);
     }
 }

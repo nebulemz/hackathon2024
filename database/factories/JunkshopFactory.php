@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -9,15 +10,14 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class JunkshopFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
     public function definition(): array
     {
         return [
-            //
+            'user_id' => User::factory()->state(['is_junkshop' => true]),
+            'name' => fake()->name(),
+            'latitude' => fake()->latitude(),
+            'longitude' => fake()->longitude(),
+            'address' => fake('en_PH')->address()
         ];
     }
 }
