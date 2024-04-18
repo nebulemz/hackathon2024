@@ -42,6 +42,7 @@
                     </div>
                     <div class="modal-body">
                         <div class="table-responsive">
+                            <div id="google-maps" style="width: 100%; height: 400px"></div>
                             <table class="table card-table table-vcenter text-nowrap datatable">
                                 <thead>
                                     <tr>
@@ -103,5 +104,22 @@
                 essential: true
             });
         }
+    </script>
+    <script>
+        async function initMap() {
+            const {
+                Map
+            } = await google.maps.importLibrary("maps");
+
+            map = new Map(document.getElementById("google-maps"), {
+                center: {
+                    lat: 14.58977819216876,
+                    lng: 120.98159704631904
+                },
+                zoom: 13,
+            });
+        }
+
+        initMap();
     </script>
 @endpush
