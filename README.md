@@ -43,3 +43,14 @@ MAPBOX_TOKEN=TOKEN_HERE
 ```bash
 $ php artisan serve
 ```
+
+5. Using `vite` bundler, on your command line. 
+```bash
+$ npm install
+```
+
+6. 
+- Build the bundler
+```bash
+$ npm run build
+```
