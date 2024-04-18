@@ -61,24 +61,14 @@
 @endsection
 
 @push('scripts')
-    <script>
-        mapboxgl.accessToken = '{{ env('MAPBOX_PUBLIC_TOKEN') }}';
-
-        var map = new mapboxgl.Map({
-            container: 'map',
-            style: 'mapbox://styles/mapbox/streets-v11',
-            center: [120.97710231764093, 14.58918171014233], // Default map center
-            zoom: 14 // Default zoom level
-        });
-
-        map.on('load', function() {
+    <script type="module">
+        map.on('load', () => {
             new mapboxgl.Marker()
-                .setLngLat([{{ $booking->junkshop->longitude }}, {{ $booking->junkshop->latitude }}]) // Set the marker coordinates [lng, lat]
+                .setLngLat([{{ $booking->junkshop->longitude }}, {{ $booking->junkshop->latitude }}])
                 .addTo(map);
             new mapboxgl.Marker()
-                .setLngLat([{{ $booking->user_latitude }}, {{ $booking->user_longitude }}]) // Set the marker coordinates [lng, lat]
+                .setLngLat([{{ $booking->user_latitude }}, {{ $booking->user_longitude }}])
                 .addTo(map);
         });
-
     </script>
 @endpush

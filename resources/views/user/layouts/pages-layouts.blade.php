@@ -17,7 +17,7 @@
     <link href="{{ asset('/assets/dist/css/demo.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('/assets/dist/css/tabler.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('/assets/dist/css/tabler-icons.min.css') }}" rel="stylesheet" />
-    <link href='https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.css' rel='stylesheet' />
+    @vite(['resources/js/mapbox.js'])
     <style>
         @import url('https://rsms.me/inter/inter.css');
 
@@ -58,7 +58,6 @@
     {{-- Ajax-Jquery --}}
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
         crossorigin="anonymous"></script>
-    <script src='https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.js'></script>
 
     @stack('scripts')
 </body>

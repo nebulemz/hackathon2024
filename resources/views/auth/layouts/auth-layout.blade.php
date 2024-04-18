@@ -18,8 +18,9 @@
     <link href="{{ asset('/assets/dist/css/tabler-flags.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('/assets/dist/css/tabler-payments.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('/assets/dist/css/tabler-vendors.min.css') }}" rel="stylesheet" />
-    <link href='https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.css' rel='stylesheet' />
-    <script src='https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.js'></script>
+    @vite(['resources/js/mapbox.js'])
+    {{-- <link href='https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.css' rel='stylesheet' />
+    <script src='https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.js'></script> --}}
 
     @stack('stylesheets')
     <link href="./assets/dist/css/demo.min.css?1684106062" rel="stylesheet" />

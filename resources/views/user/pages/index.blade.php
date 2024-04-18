@@ -83,25 +83,11 @@
 @endsection
 
 @push('scripts')
-    <script>
-        mapboxgl.accessToken = '{{ env('MAPBOX_PUBLIC_TOKEN') }}';
-        const map = new mapboxgl.Map({
-            container: 'map', // container ID
-            style: 'mapbox://styles/mapbox/streets-v12', // style URL
-            center: [120.97710231764093, 14.58918171014233], // starting position [lng, lat]
-            zoom: 14, // starting zoom
+    <script type="module">
+        map.on('load', () => {
+            @foreach ($junkshops as $junkshop)
+                addMarker({{ $junkshop->longitude }}, {{ $junkshop->latitude }})
+            @endforeach
         });
-        @foreach ($junkshops as $junkshop)
-            new mapboxgl.Marker()
-                .setLngLat([{{ $junkshop->longitude }}, {{ $junkshop->latitude }}])
-                .addTo(map);
-        @endforeach
-
-        async function centerMap(lat, lng) {
-            map.flyTo({
-                center: [lng, lat],
-                essential: true
-            });
-        }
     </script>
 @endpush
